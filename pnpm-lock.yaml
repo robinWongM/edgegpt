@@ -12,35 +12,6 @@ importers:
       prettier: 2.8.4
       turbo: 1.8.3
 
-  apps/docs:
-    specifiers:
-      '@babel/core': ^7.0.0
-      '@types/node': ^17.0.12
-      '@types/react': ^18.0.22
-      '@types/react-dom': ^18.0.7
-      eslint: 7.32.0
-      eslint-config-custom: workspace:*
-      next: ^13.1.1
-      react: 18.2.0
-      react-dom: 18.2.0
-      tsconfig: workspace:*
-      typescript: ^4.5.3
-      ui: workspace:*
-    dependencies:
-      next: 13.2.4_hrdbe576m4w26u2yfpqpvbxyky
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      ui: link:../../packages/ui
-    devDependencies:
-      '@babel/core': 7.21.3
-      '@types/node': 17.0.45
-      '@types/react': 18.0.28
-      '@types/react-dom': 18.0.11
-      eslint: 7.32.0
-      eslint-config-custom: link:../../packages/eslint-config-custom
-      tsconfig: link:../../packages/tsconfig
-      typescript: 4.9.5
-
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
