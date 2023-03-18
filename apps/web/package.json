@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it-footnote": "^3.0.0",
+    "@unocss/nuxt": "^0.50.6",
+    "nuxt": "^3.3.1",
+    "server": "workspace:*"
+  },
+  "dependencies": {
+    "@kidonng/daisyui": "^2.51.3",
+    "@trpc/client": "^10.16.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-footnote": "^3.0.3",
+    "shiki": "^0.14.1",
+    "trpc-nuxt": "^0.7.0",
+    "unocss-preset-daisy": "^2.0.0"
+  }
+}

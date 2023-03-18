@@ -2,14 +2,19 @@ import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import fastify from "fastify";
 import { createContext } from "./context";
 import { appRouter } from "./router";
+import cors from "@fastify/cors";
+import ws from "@fastify/websocket";
 
 const server = fastify({
   maxParamLength: 5000,
 });
 
+server.register(cors);
+server.register(ws);
 server.register(fastifyTRPCPlugin, {
   prefix: "/trpc",
   trpcOptions: { router: appRouter, createContext },
+  useWSS: true,
 });
 
 (async () => {
@@ -23,9 +28,9 @@ server.register(fastifyTRPCPlugin, {
 
 // @ts-ignore
 if (import.meta.hot) {
-// @ts-ignore
+  // @ts-ignore
   import.meta.hot.accept(() => {
-    console.log('HMR!');
+    console.log("HMR!");
     server.close();
   });
 }
