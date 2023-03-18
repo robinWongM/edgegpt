@@ -1,12 +1,31 @@
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
-import fastify from "fastify";
+import fastify, { FastifyInstance } from "fastify";
 import { createContext } from "./context";
 import { appRouter } from "./router";
 import cors from "@fastify/cors";
 import ws from "@fastify/websocket";
 
-const server = fastify({
+declare global {
+  var server: FastifyInstance | undefined;
+}
+
+const envToLogger = {
+  development: {
+    transport: {
+      target: "pino-pretty",
+      options: {
+        translateTime: "HH:MM:ss Z",
+        ignore: "pid,hostname",
+      },
+    },
+  },
+  production: true,
+  test: false,
+};
+
+export const server = fastify({
   maxParamLength: 5000,
+  logger: envToLogger[process.env.NODE_ENV] ?? true,
 });
 
 server.register(cors);
@@ -19,18 +38,14 @@ server.register(fastifyTRPCPlugin, {
 
 (async () => {
   try {
+    if (globalThis.server) {
+      globalThis.server.log.info('Closing previous server...');
+      await globalThis.server.close();
+    }
+    globalThis.server = server;
+
     await server.listen({ port: 3000 });
-    console.log(`EdgeGPT server is listening @ 127.0.0.1:3000`);
   } catch (err) {
     server.log.error(err);
   }
 })();
-
-// @ts-ignore
-if (import.meta.hot) {
-  // @ts-ignore
-  import.meta.hot.accept(() => {
-    console.log("HMR!");
-    server.close();
-  });
-}
