@@ -1,36 +1,86 @@
 <script setup lang="ts">
-const props = defineProps<{
-  messages: any[];
-}>();
+import { ChatMessage } from "~~/composables/chat";
+import FluentPerson24Filled from "~icons/fluent/person-24-filled";
+import FluentBot24Regular from "~icons/fluent/bot-24-regular";
 
-const messageContent = reactive({} as Record<string, string>);
-const rawMessages = computed(() => props.messages.filter(msg => msg.type === 'message' && msg.data.type === 2))
+const chatId = inject<Ref<string>>("chatId");
+const { messages, status, send } = useChat(chatId!);
 
+const messageContainer = ref<HTMLElement | null>(null);
 
-const messages = computed(() => {
-  return props.messages
-    .filter((msg) => msg.type === "message")
-    .map((msg) => msg.data)
-    .filter((msg) => msg.type === 1 && msg.target === "update")
-    .map((msg) => msg.arguments?.[0]?.messages || [])
-    .flat()
-    .reduce((msgIds: Set<number>, msg) => {
-      const id = msg.messageId;
-      msgIds.add(id);
-      messageContent[id] = msg.adaptiveCards?.[0]?.body?.[0]?.text || msg.text;
-      return msgIds;
-    }, new Set());
-});
+const shouldStickToBottom = ref(true);
+const updateShouldStickToBottom = () => {
+  console.log("update");
+  const { scrollHeight, clientHeight, scrollTop } = messageContainer.value!;
+  shouldStickToBottom.value = scrollHeight - clientHeight - scrollTop < 100;
+};
+
+const scrollToBottom = () => {
+  if (!messageContainer.value) {
+    return;
+  }
+
+  const { scrollHeight, clientHeight } = messageContainer.value!;
+  messageContainer.value!.scrollTop = scrollHeight - clientHeight;
+};
+
+watch(
+  messages,
+  () => {
+    if (!shouldStickToBottom.value) {
+      return;
+    }
+
+    scrollToBottom();
+  },
+  { flush: "post", immediate: true }
+);
 </script>
 
 <template>
-  <div class="h-full overflow-y-auto">
-    <div v-for="msgId in messages" :key="msgId">
-      <Markdown
-        class="max-w-80% bg-primary-content text-black p-4 rounded-xl mb-4"
-        v-if="messageContent[msgId]"
-        :content="messageContent[msgId]"
-      />
+  <div
+    class="flex-1 overflow-y-auto"
+    ref="messageContainer"
+    @scroll="updateShouldStickToBottom"
+  >
+    <div>
+      <div
+        v-for="message in messages"
+        :key="message.id"
+        class="flex gap-4 px-6 pt-4 pb-8"
+        :class="
+          message.author === 'user'
+            ? 'bg-base-300'
+            : message.author === 'system'
+            ? 'bg-warning'
+            : ''
+        "
+      >
+        <span class="mt-3">
+          <FluentPerson24Filled
+            v-if="message.author === 'user'"
+            class="w-6 h-6"
+          />
+          <FluentBot24Regular v-else class="w-6 h-6" />
+        </span>
+        <div class="flex-1">
+          <Markdown class="pt-1" :content="message.text" />
+          <div
+            v-if="message.suggestions"
+            class="flex flex-wrap gap-x-4 gap-y-2 mt-4"
+          >
+            <button
+              class="btn py-2 min-h-auto h-auto leading-4 flex-1 lg:flex-none"
+              v-for="suggestion in message.suggestions"
+              :key="suggestion"
+              @click="send(suggestion)"
+              :disabled="!status.canSend"
+            >
+              {{ suggestion }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -2,8 +2,7 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
-  "type": "module",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "vite-node -w ."
   },

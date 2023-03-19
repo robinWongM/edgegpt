@@ -1,6 +1,6 @@
-import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client";
+import { createTRPCNuxtClient } from "trpc-nuxt/client";
 
-import type { AppRouter } from "server/router";
+import type { AppRouter } from "server/src/router";
 import { createWSClient, wsLink } from "@trpc/client";
 
 export default defineNuxtPlugin(() => {
@@ -12,7 +12,7 @@ export default defineNuxtPlugin(() => {
     links: [
       wsLink({
         client: createWSClient({
-          url: `ws://localhost:3000/trpc`,
+          url: `ws://localhost:8080/trpc`,
         })
       }),
     ],

@@ -44,7 +44,7 @@ server.register(fastifyTRPCPlugin, {
     }
     globalThis.server = server;
 
-    await server.listen({ port: 3000 });
+    await server.listen({ port: 8080 });
   } catch (err) {
     server.log.error(err);
   }

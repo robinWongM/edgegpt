@@ -8,21 +8,28 @@ export default defineNuxtConfig({
     transpile: ["trpc-nuxt"],
   },
   ssr: false,
-  modules: ["@unocss/nuxt"],
+  modules: [
+    "@unocss/nuxt",
+    [
+      "unplugin-icons/nuxt",
+      {
+        autoInstall: true,
+      },
+    ],
+  ],
   unocss: {
     transformers: [transformerDirectives()],
     presets: [presetUno(), presetDaisy()],
   },
   css: [
-    '@unocss/reset/tailwind.css',
-    '@kidonng/daisyui/index.css',
-    '@kidonng/daisyui/themes/winter.css',
-    'uno.css'
+    "@unocss/reset/tailwind.css",
+    "@kidonng/daisyui/index.css",
+    "@kidonng/daisyui/themes/halloween.css",
+    "uno.css",
   ],
   vite: {
     define: {
       "process.env": {},
-    }
-  }
+    },
+  },
 });
-
