@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   css: [
     "@unocss/reset/tailwind.css",
     "@kidonng/daisyui/index.css",
-    "@kidonng/daisyui/themes/halloween.css",
+    "@kidonng/daisyui/themes/pastel.css",
     "uno.css",
   ],
   vite: {

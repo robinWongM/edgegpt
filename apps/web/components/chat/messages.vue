@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ChatMessage } from "~~/composables/chat";
 import FluentPerson24Filled from "~icons/fluent/person-24-filled";
 import FluentBot24Regular from "~icons/fluent/bot-24-regular";
 
@@ -10,7 +9,6 @@ const messageContainer = ref<HTMLElement | null>(null);
 
 const shouldStickToBottom = ref(true);
 const updateShouldStickToBottom = () => {
-  console.log("update");
   const { scrollHeight, clientHeight, scrollTop } = messageContainer.value!;
   shouldStickToBottom.value = scrollHeight - clientHeight - scrollTop < 100;
 };
@@ -50,9 +48,9 @@ watch(
         class="flex gap-4 px-6 pt-4 pb-8"
         :class="
           message.author === 'user'
-            ? 'bg-base-300'
+            ? 'bg-base-300 text-base-content'
             : message.author === 'system'
-            ? 'bg-warning'
+            ? 'bg-error text-error-content'
             : ''
         "
       >

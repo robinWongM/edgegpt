@@ -32,14 +32,7 @@ export interface ChatMessage {
   suggestions?: string[];
 }
 
-export const useChatList = () => chatStorage;
-
-export const useChat = (key: MaybeRef<string>) => {
-  if (chatStorage[unref(key)]) {
-    // This is an existing conversation
-    return chatStorage[unref(key)];
-  }
-
+const createEmptyChat = () => {
   const invocationId = ref(-1);
 
   const metadata = reactive<ChatMetadata>({
@@ -53,12 +46,40 @@ export const useChat = (key: MaybeRef<string>) => {
   });
   const messages = reactive<ChatMessage[]>([]);
 
+  return {
+    invocationId,
+    metadata,
+    status,
+    messages,
+    send: (_: string) => {},
+  }
+}
+
+const DEFAULT_EMPTY_CHAT = createEmptyChat();
+
+export const useChatList = () => chatStorage;
+
+export const useChat = (keyRef: MaybeRef<string>) => {
+  const key = unref(keyRef);
+
+  if (chatStorage[key]) {
+    // This is an existing conversation
+    return chatStorage[key];
+  }
+
+  if (!key) {
+    return DEFAULT_EMPTY_CHAT;
+  }
+
+  const { invocationId, metadata, status, messages } = createEmptyChat();
+
   chatStorage[unref(key)] = {
     metadata,
     status,
     messages,
     send,
   };
+
   return chatStorage[unref(key)];
 
   async function start() {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import FluentSettings16Regular from "~icons/fluent/settings-16-regular";
+
 const modalId = "modal-settings";
 
 const { get, set } = useBingCookies();
@@ -9,7 +11,9 @@ const cancel = () => (cookiesInput.value = get());
 
 <template>
   <!-- The button to open modal -->
-  <label :for="modalId">Settings</label>
+  <label :for="modalId" class="btn btn-ghost btn-circle">
+    <FluentSettings16Regular class="w-6 h-6" />
+  </label>
 
   <Modal :id="modalId" title="Settings">
     <div class="w-full pt-4">
