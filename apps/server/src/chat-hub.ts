@@ -82,8 +82,8 @@ export class ChatHub extends EventEmitter {
             author: "user",
             inputMethod: "Keyboard",
             text: message,
-            // messageType: "Chat",
-            messageType: "SearchQuery",
+            messageType: "Chat",
+            // messageType: "SearchQuery",
           },
           conversationSignature: this.context.conversationSignature,
           participant: { id: this.context.clientId }, // clientId
