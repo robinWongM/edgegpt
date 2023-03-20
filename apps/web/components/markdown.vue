@@ -26,7 +26,7 @@ const rendered = computedWithControl(
 }
 
 :deep(hr) {
-  @apply my-4 opacity-30;
+  @apply my-4;
 }
 
 :deep(ul li),
@@ -39,10 +39,11 @@ const rendered = computedWithControl(
 }
 
 :deep(pre) {
-  @apply p-4;
+  @apply p-4 overflow-x-auto;
 }
 
-:deep(pre) {
-  @apply overflow-x-auto;
+:deep(code) {
+  @apply kbd kbd-sm;
 }
+
 </style>

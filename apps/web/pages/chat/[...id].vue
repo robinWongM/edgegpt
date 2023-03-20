@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FluentAdd24Filled from "~icons/fluent/add-24-filled";
-import FluentPen16Filled from '~icons/fluent/pen-16-filled'
+import FluentPen16Filled from "~icons/fluent/pen-16-filled";
 
 definePageMeta({
   keepalive: true,
@@ -29,7 +29,7 @@ const openChat = async (linkChatId: string) => {
     <div class="drawer-side">
       <label for="drawer" class="drawer-overlay"></label>
       <div
-        class="flex flex-col justify-between gap-10 px-2 py-4 w-80 overflow-y-auto bg-base-200"
+        class="flex flex-col justify-between gap-10 px-2 py-4 w-80 overflow-y-auto bg-base-100"
       >
         <ul class="menu w-full px-2 rounded-box overflow-y-auto flex-nowrap">
           <li class="my-2">

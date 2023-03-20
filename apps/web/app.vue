@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useHead({
   bodyAttrs: {
-    "data-theme": "pastel",
+    "data-theme": "winter",
   },
 });
 </script>

@@ -111,7 +111,14 @@ export const useChat = (keyRef: MaybeRef<string>) => {
     if (status.idStatus !== "active") {
       try {
         await start();
-      } catch (e) {}
+      } catch (e: any) {
+        addLocalMessage(`Error: ${e.message}`, "system");
+
+        status.idStatus = "inactive";
+        status.canSend = true;
+
+        return;
+      }
     }
     invocationId.value += 1;
 
