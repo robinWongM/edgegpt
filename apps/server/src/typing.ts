@@ -135,7 +135,12 @@ interface ChatHubMessage {
   createdAt: string;
   timestamp: string;
   messageId: string;
-  messageType: "text" | "suggestedResponse";
+  messageType?:
+    | "InternalSearchQuery"
+    | "InternalSearchResult"
+    | "Suggestion"
+    | "InternalLoaderMessage"
+    | "RenderCardRequest";
   offense: "None";
   adaptiveCards: AdaptiveCard[];
   sourceAttributions: unknown[];

@@ -165,8 +165,7 @@ export class ChatHub extends EventEmitter {
           return;
         }
 
-        // We only care about those messages without a `messageType`
-        if (message.messageType) {
+        if (message.messageType === "RenderCardRequest") {
           return;
         }
 
