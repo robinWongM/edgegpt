@@ -8,7 +8,7 @@ interface Chat {
   messages: ChatMessage[];
   status: ChatStatus;
 
-  send: (message: string) => void;
+  send: (message: string, pageContent?: string) => void;
 }
 
 interface ChatMetadata {
@@ -17,6 +17,7 @@ interface ChatMetadata {
   clientId: string;
 
   title?: string;
+  tone?: "balanced" | "creative" | "precise";
 }
 
 interface ChatStatus {
@@ -39,6 +40,9 @@ const createEmptyChat = () => {
     conversationId: "",
     conversationSignature: "",
     clientId: "",
+
+    title: "New Chat",
+    tone: "balanced",
   });
   const status = reactive<ChatStatus>({
     idStatus: "inactive",
@@ -100,7 +104,7 @@ export const useChat = (keyRef: MaybeRef<string>) => {
     status.idStatus = "active";
   }
 
-  async function send(text: string) {
+  async function send(text: string, pageContent?: string) {
     if (!status.canSend) {
       return;
     }
@@ -122,13 +126,17 @@ export const useChat = (keyRef: MaybeRef<string>) => {
     }
     invocationId.value += 1;
 
-    useNuxtApp().$client.chat.subscribe(
+    const subscription = useNuxtApp().$client.chat.subscribe(
       {
         message: text,
-        context: { ...metadata, invocationId: `${invocationId.value}` },
+        context: {
+          ...metadata,
+          invocationId: `${invocationId.value}`,
+        },
+        pageContent,
       },
       {
-        onData: (data: any) => processResponse(data),
+        onData: (data: any) => processResponse(data, subscription),
         onComplete: () => {
           status.canSend = true;
         },
@@ -152,13 +160,14 @@ export const useChat = (keyRef: MaybeRef<string>) => {
     });
   }
 
-  function processResponse(response: any) {
+  function processResponse(response: any, subscription: { unsubscribe: () => void }) {
     if (response.type === "done") {
       const { value, message } = response.metadata.result ?? {};
       if (value !== "Success") {
         addLocalMessage(`Error (${value}): ${message}`, "system");
       }
 
+      subscription.unsubscribe();
       status.canSend = true;
       return;
     }

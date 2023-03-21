@@ -4,7 +4,7 @@ const { metadata } = useChat(chatId!);
 </script>
 
 <template>
-  <div class="navbar">
+  <div class="navbar fixed top-0 sticky bg-base-200">
     <div class="navbar-start">
       <label
         for="drawer"

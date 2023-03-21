@@ -64,6 +64,9 @@ importers:
       idb-keyval: ^6.2.0
       markdown-it: ^13.0.1
       markdown-it-footnote: ^3.0.3
+      markdown-it-link-attributes: ^4.0.1
+      markdown-it-sub: ^1.0.0
+      markdown-it-sup: ^1.0.0
       nuxt: ^3.3.1
       server: workspace:*
       shiki: ^0.14.1
@@ -76,6 +79,9 @@ importers:
       idb-keyval: 6.2.0
       markdown-it: 13.0.1
       markdown-it-footnote: 3.0.3
+      markdown-it-link-attributes: 4.0.1
+      markdown-it-sub: 1.0.0
+      markdown-it-sup: 1.0.0
       shiki: 0.14.1
       trpc-nuxt: 0.7.0_@trpc+client@10.16.0
       unocss-preset-daisy: 2.0.0_@kidonng+daisyui@2.51.3
@@ -5309,6 +5315,18 @@ packages:
 
   /markdown-it-footnote/3.0.3:
     resolution: {integrity: sha512-YZMSuCGVZAjzKMn+xqIco9d1cLGxbELHZ9do/TSYVzraooV8ypsppKNmUJ0fVH5ljkCInQAtFpm8Rb3eXSrt5w==}
+    dev: false
+
+  /markdown-it-link-attributes/4.0.1:
+    resolution: {integrity: sha512-pg5OK0jPLg62H4k7M9mRJLT61gUp9nvG0XveKYHMOOluASo9OEF13WlXrpAp2aj35LbedAy3QOCgQCw0tkLKAQ==}
+    dev: false
+
+  /markdown-it-sub/1.0.0:
+    resolution: {integrity: sha512-z2Rm/LzEE1wzwTSDrI+FlPEveAAbgdAdPhdWarq/ZGJrGW/uCQbKAnhoCsE4hAbc3SEym26+W2z/VQB0cQiA9Q==}
+    dev: false
+
+  /markdown-it-sup/1.0.0:
+    resolution: {integrity: sha512-E32m0nV9iyhRR7CrhnzL5msqic7rL1juWre6TQNxsnApg7Uf+F97JOKxUijg5YwXz86lZ0mqfOnutoryyNdntQ==}
     dev: false
 
   /markdown-it/13.0.1:

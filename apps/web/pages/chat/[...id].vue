@@ -21,7 +21,7 @@ const openChat = async (linkChatId: string) => {
 </script>
 
 <template>
-  <div class="drawer drawer-mobile">
+  <div class="drawer drawer-mobile bg-base-200" id="modal-container">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <Chat :chat-id="chatId" />
@@ -29,7 +29,7 @@ const openChat = async (linkChatId: string) => {
     <div class="drawer-side">
       <label for="drawer" class="drawer-overlay"></label>
       <div
-        class="flex flex-col justify-between gap-10 px-2 py-4 w-80 overflow-y-auto bg-base-100"
+        class="flex flex-col justify-between gap-10 px-2 py-4 w-80 overflow-y-auto bg-base-300"
       >
         <ul class="menu w-full px-2 rounded-box overflow-y-auto flex-nowrap">
           <li class="my-2">
@@ -46,9 +46,6 @@ const openChat = async (linkChatId: string) => {
               <span class="flex-1">
                 {{ chat.metadata.title ?? "New Chat" }}
               </span>
-              <a class="btn btn-circle btn-xs btn-ghost">
-                <FluentPen16Filled />
-              </a>
             </a>
           </li>
         </ul>

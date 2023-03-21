@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import FluentSettings16Regular from "~icons/fluent/settings-16-regular";
 
-const modalId = "modal-settings";
+const chatId = inject<Ref<string>>("chatId");
+const modalId = computed(() => `chat-settings-${chatId!.value}`);
 
 const { get, set } = useBingCookies();
 const cookiesInput = ref(get());

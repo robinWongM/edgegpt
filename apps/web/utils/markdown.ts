@@ -1,5 +1,8 @@
 import MarkdownIt from "markdown-it";
 import MarkdownItFootnote from "markdown-it-footnote";
+import MarkdownItSub from "markdown-it-sub";
+import MarkdownItSup from "markdown-it-sup";
+import MarkdownItLinkAttributes from "markdown-it-link-attributes";
 import { setCDN, getHighlighter, BUNDLED_LANGUAGES, Lang } from "shiki";
 
 setCDN("https://cdn.jsdelivr.net/npm/shiki/");
@@ -40,4 +43,13 @@ export const markdownIt = MarkdownIt({
   highlight,
   breaks: true,
 });
+
 markdownIt.use(MarkdownItFootnote);
+markdownIt.use(MarkdownItSub);
+markdownIt.use(MarkdownItSup);
+markdownIt.use(MarkdownItLinkAttributes, {
+  attrs: {
+    target: "_blank",
+    rel: "noopener",
+  },
+});

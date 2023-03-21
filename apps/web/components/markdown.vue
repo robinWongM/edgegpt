@@ -12,7 +12,7 @@ const rendered = computedWithControl(
 </script>
 
 <template>
-  <div class="relative">
+  <div>
     <div v-if="$props.content" v-html="rendered" />
   </div>
 </template>
@@ -36,6 +36,14 @@ const rendered = computedWithControl(
 
 :deep(a) {
   @apply bg-secondary text-secondary-content rounded-lg px-2 py-1 text-xs inline-block;
+}
+
+:deep(a:has(sup)) {
+  @apply bg-transparent p-0 leading-200% ml-0.5;
+}
+
+:deep(a sup) {
+  @apply bg-secondary px-1 rounded -top-2;
 }
 
 :deep(pre) {

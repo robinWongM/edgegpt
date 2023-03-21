@@ -156,7 +156,7 @@ export class ChatHub extends EventEmitter {
     switch (packet.type) {
       // This is a `update` packet
       case 1:
-        console.dir(packet, { depth: null });
+        // console.dir(packet, { depth: null });
 
         // It should only have one message
         const message = packet.arguments?.[0]?.messages?.[0];
@@ -225,12 +225,12 @@ export class ChatHub extends EventEmitter {
         break;
     }
 
-    console.log(packet);
+    // console.log(packet);
   }
 
   private wsSend(data: any) {
     const serialized = Buffer.from(JSON.stringify(data) + MSG_SPLITTER);
-    console.log(serialized);
+    console.dir(data, { depth: null });
     this.connection.send(serialized);
   }
 }
